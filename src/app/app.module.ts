@@ -2,7 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule}  from '@angular/forms';
 import {RouterModule} from '@angular/router';
-
+import {HttpClientModule,HttpClient} from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 import { MenubarComponent } from './menubar/menubar.component';
 import { LeftbodyComponent } from './leftbody/leftbody.component';
@@ -20,6 +22,16 @@ import { CourseComponent } from './routes/home/course/course.component';
 import {CourseService} from './services/course.service';
 import { OffercodePipe } from './pipes/offercode.pipe';
 import { FilterpricePipe } from './pipes/filterprice.pipe';
+import { ReviewlistComponent } from './routes/reviews/reviewlist/reviewlist.component';
+import { ReviewComponent } from './routes/reviews/review/review.component';
+import { ReviewService } from './services/review.service';
+import { EnquiryService } from './services/enquiry.service';
+
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 const routes=[
   {path:"",component: HomeComponent},
   {path:"offices",component: OfficesComponent},
@@ -47,12 +59,21 @@ const routes=[
     CourselistComponent,
     CourseComponent,
     OffercodePipe,
-    FilterpricePipe
+    FilterpricePipe,
+    ReviewlistComponent,
+    ReviewComponent
   ],
   imports: [
-    BrowserModule,RouterModule.forRoot(routes),FormsModule
+    BrowserModule,RouterModule.forRoot(routes),FormsModule,
+    HttpClientModule,TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: (createTranslateLoader),
+          deps: [HttpClient]
+      }
+  })
   ],
-  providers: [CourseService],
+  providers: [CourseService,ReviewService,EnquiryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
