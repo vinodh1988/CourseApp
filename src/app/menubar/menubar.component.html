@@ -22,6 +22,10 @@
     <li class="nav-item">
       <a class="nav-link" routerLink="/offers">{{"VARS.Offers"| translate}}</a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="[{ outlets: { sidebar: ['schedules'] } }]">
+        Schedules</a>
+  </li>
   </ul>
   <select [(ngModel)]="lang" (change)="change()">
     <option>tamil</option>

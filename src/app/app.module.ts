@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule}  from '@angular/forms';
+import { FormsModule, ReactiveFormsModule}  from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule,HttpClient} from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -26,6 +26,8 @@ import { ReviewlistComponent } from './routes/reviews/reviewlist/reviewlist.comp
 import { ReviewComponent } from './routes/reviews/review/review.component';
 import { ReviewService } from './services/review.service';
 import { EnquiryService } from './services/enquiry.service';
+import { CoursedetailsComponent } from './coursedetails/coursedetails.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -38,7 +40,9 @@ const routes=[
   {path:"newcourses",component: NewcoursesComponent},
   {path:"offers",component: OffersComponent},
   {path:"vclass",component: VirtualclassComponent},
-  {path:"reviews",component: ReviewsComponent}
+  {path:"reviews",component: ReviewsComponent},
+  {path:"cdetails/:ccode",component:CoursedetailsComponent},
+  {path:"schedules",component:ScheduleComponent,outlet:"sidebar"}
 ]
 
 
@@ -61,7 +65,9 @@ const routes=[
     OffercodePipe,
     FilterpricePipe,
     ReviewlistComponent,
-    ReviewComponent
+    ReviewComponent,
+    CoursedetailsComponent,
+    ScheduleComponent
   ],
   imports: [
     BrowserModule,RouterModule.forRoot(routes),FormsModule,
@@ -71,7 +77,7 @@ const routes=[
           useFactory: (createTranslateLoader),
           deps: [HttpClient]
       }
-  })
+  }),ReactiveFormsModule
   ],
   providers: [CourseService,ReviewService,EnquiryService],
   bootstrap: [AppComponent]

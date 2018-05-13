@@ -17,7 +17,7 @@ lang:string="english";
   }
   
   change(){
-    alert(this.lang);
+    
     this.ts.use(this.lang);
   }
 
